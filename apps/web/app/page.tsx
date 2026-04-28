@@ -455,7 +455,7 @@ export default function Atelie() {
           }}
           onClick={() => scrollTo("home")}
         >
-          ✦ Ateliê Arco-Íris
+          ✦ Delira Ateliê
         </div>
         <div style={{ display: "flex", gap: 8 }}>
           {["home","cursos","sobre","depoimentos","contato"].map(s => (
