@@ -20,10 +20,6 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
     "ignoreDeprecations": "6.0",
-    "types": ["node"],  // ← ADICIONE ESTA LINHA
-    "paths": {
-      "@deliratelie/shared": ["../../packages/shared/src/index.ts"]
-    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test"]
