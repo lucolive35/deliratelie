@@ -1,102 +1,78 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
+'use client';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ThemeImage
-          className={styles.logo}
-          srcLight="turborepo-dark.svg"
-          srcDark="turborepo-light.svg"
-          alt="Turborepo logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>apps/web/app/page.tsx</code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [status, setStatus] = useState<string>('Conectando à API...');
+  const [data, setData] = useState<any>(null);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new/clone?demo-description=Learn+to+implement+a+monorepo+with+a+two+Next.js+sites+that+has+installed+three+local+packages.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F4K8ZISWAzJ8X1504ca0zmC%2F0b21a1c6246add355e55816278ef54bc%2FBasic.png&demo-title=Monorepo+with+Turborepo&demo-url=https%3A%2F%2Fexamples-basic-web.vercel.sh%2F&from=templates&project-name=Monorepo+with+Turborepo&repository-name=monorepo-turborepo&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fturborepo%2Ftree%2Fmain%2Fexamples%2Fbasic&root-directory=apps%2Fdocs&skippable-integrations=1&teamSlug=vercel&utm_source=create-turbo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://turborepo.dev/docs?utm_source"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-        <Button appName="web" className={styles.secondary}>
-          Open alert
-        </Button>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com/templates?search=turborepo&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://turborepo.dev?utm_source=create-turbo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to turborepo.dev →
-        </a>
-      </footer>
-    </div>
+  useEffect(() => {
+    const fetchApi = async () => {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:4000';
+
+      try {      
+        const result = await fetch(`${apiUrl}/`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        console.log('Resposta da API:', result);
+        const json = await result.json();
+        setData(json);
+        setStatus('✅ API conectada!');
+
+      } catch (err) {
+        console.error('Erro na fetch:', err);
+        setStatus(`❌ URL inválida: ${apiUrl}`);
+        return;
+      }
+    };
+    
+    fetchApi();
+  }, []);
+
+  return (
+    <main className="min-h-screen p-8 bg-gradient-to-br from-rose-50 via-purple-50 to-indigo-50">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <header className="text-center py-12">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-rose-500 to-purple-600 bg-clip-text text-transparent">
+            DeliraAteliê ✨
+          </h1>
+          <p className="mt-4 text-lg text-gray-600">
+            Artesanato com alma e criatividade
+          </p>
+        </header>
+
+        {/* Status da API */}
+        <section className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-semibold text-gray-800">Status do Sistema</h2>
+          <p className={`mt-2 font-medium ${status.includes('✅') ? 'text-green-600' : 'text-red-500'}`}>
+            {status}
+          </p>
+          {data && (
+            <pre className="mt-4 p-4 bg-gray-50 rounded-lg text-sm overflow-auto">
+              {JSON.stringify(data, null, 2)}
+            </pre>
+          )}
+        </section>
+
+        {/* Cards de navegação */}
+        <section className="grid gap-6 md:grid-cols-3">
+          {[
+            { title: 'Portfólio', desc: 'Nossos trabalhos artesanais', icon: '🎨' },
+            { title: 'Sobre', desc: 'Conheça nossa história', icon: '✨' },
+            { title: 'Contato', desc: 'Vamos criar juntos?', icon: '💬' },
+          ].map((item) => (
+            <div 
+              key={item.title}
+              className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+            >
+              <span className="text-3xl">{item.icon}</span>
+              <h3 className="mt-4 text-lg font-semibold text-gray-800">{item.title}</h3>
+              <p className="text-gray-500 mt-1">{item.desc}</p>
+            </div>
+          ))}
+        </section>
+      </div>
+    </main>
   );
 }
