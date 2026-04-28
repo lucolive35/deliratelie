@@ -10,6 +10,7 @@
     "dev": "nest start --watch",
     "start": "nest start",
     "start:prod": "node dist/main",
+      "debug": "echo 'PATH:' $PATH && ls -la node_modules/.bin | grep nest && npx nest --version",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
