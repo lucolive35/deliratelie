@@ -1,107 +1,112 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Home() {
-  const [status, setStatus] = useState('Conectando à API...');
-  const [data, setData] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchApi = async () => {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:4000';
-
-      try {
-        const result = await fetch(`${apiUrl}/`);
-        const json = await result.json();
-        setData(json);
-        setStatus('✨ Tudo funcionando!');
-      } catch (err) {
-        setStatus('💥 Erro ao conectar');
-      }
-    };
-
-    fetchApi();
-  }, []);
+  const [mode, setMode] = useState<'psychedelic' | 'premium'>('psychedelic');
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top,_#ff4ecd,_#22c55e,_#ff4ecd)] animate-pulse text-white">
-      <div className="max-w-6xl mx-auto px-6 py-10">
-
-        {/* HERO */}
-        <motion.header
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+    <main className="min-h-screen">
+      {/* TOGGLE */}
+      <div className="fixed top-6 right-6 z-50 flex gap-2">
+        <button
+          onClick={() => setMode('psychedelic')}
+          className={`px-4 py-2 rounded-full font-semibold ${mode === 'psychedelic' ? 'bg-pink-500 text-white' : 'bg-white/50'}`}
         >
-          <h1 className="text-7xl font-black tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]">
-            DeliraAteliê 🌈✨
-          </h1>
-          <p className="mt-6 text-2xl font-medium max-w-2xl mx-auto">
-            Cursos criativos, experiências sensoriais e arte sem limites
-          </p>
-        </motion.header>
-
-        {/* CTA PRINCIPAL */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
+          🌈 Psicodélico
+        </button>
+        <button
+          onClick={() => setMode('premium')}
+          className={`px-4 py-2 rounded-full font-semibold ${mode === 'premium' ? 'bg-green-600 text-white' : 'bg-white/50'}`}
         >
-          <button className="px-10 py-5 text-xl font-bold rounded-full bg-gradient-to-r from-pink-500 via-fuchsia-500 to-green-400 shadow-[0_0_30px_rgba(255,0,150,0.8)] hover:scale-110 transition">
-            Quero criar agora 🚀
-          </button>
-        </motion.div>
+          ✨ Premium
+        </button>
+      </div>
 
-        {/* STATUS */}
-        <div className="text-center mb-12">
-          <p className="text-lg font-semibold">{status}</p>
-        </div>
+      {mode === 'psychedelic' ? <Psychedelic /> : <Premium />}
+    </main>
+  );
+}
 
-        {/* CARDS */}
-        <section className="grid md:grid-cols-3 gap-10">
-          {[
-            {
-              title: 'Cursos',
-              desc: 'Aprenda técnicas únicas e expanda sua criatividade',
-              emoji: '🎨',
-            },
-            {
-              title: 'Experiências',
-              desc: 'Vivências imersivas que despertam seus sentidos',
-              emoji: '🧠',
-            },
-            {
-              title: 'Comunidade',
-              desc: 'Conecte-se com pessoas criativas como você',
-              emoji: '💚',
-            },
-          ].map((item, i) => (
+function Psychedelic() {
+  return (
+    <div className="min-h-screen text-white bg-[conic-gradient(at_top,_#ff00cc,_#00ff88,_#ff00cc)] animate-spin-slow">
+      <div className="max-w-6xl mx-auto px-6 py-20">
+        <motion.h1
+          initial={{ scale: 0.7, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="text-7xl font-black text-center drop-shadow-[0_0_30px_rgba(255,255,255,0.8)]"
+        >
+          DeliraAteliê 🌈
+        </motion.h1>
+
+        <p className="text-center mt-6 text-2xl">
+          Cursos criativos que expandem sua mente
+        </p>
+
+        <div className="grid md:grid-cols-3 gap-10 mt-20">
+          {['Pintura Livre', 'Arte Sensorial', 'Experimentação'].map((item, i) => (
             <motion.div
-              key={item.title}
-              initial={{ opacity: 0, rotate: -5, y: 50 }}
-              animate={{ opacity: 1, rotate: 0, y: 0 }}
-              transition={{ delay: i * 0.2 }}
-              whileHover={{ scale: 1.1, rotate: 2 }}
-              className="p-8 rounded-[30px] bg-gradient-to-br from-pink-400/80 to-green-400/80 backdrop-blur-xl shadow-[0_0_40px_rgba(255,0,150,0.6)] border border-white/30"
+              key={item}
+              whileHover={{ scale: 1.15, rotate: 5 }}
+              className="p-8 rounded-[40px] bg-gradient-to-br from-pink-500 to-green-400 shadow-[0_0_60px_rgba(255,0,150,0.9)]"
             >
-              <div className="text-5xl">{item.emoji}</div>
-              <h3 className="mt-4 text-2xl font-bold">{item.title}</h3>
-              <p className="mt-2 text-white/90">{item.desc}</p>
+              <h3 className="text-3xl font-bold">{item}</h3>
+              <p className="mt-2">Uma experiência fora do comum</p>
             </motion.div>
           ))}
-        </section>
+        </div>
 
-        {/* API DATA */}
-        {data && (
-          <div className="mt-20 p-6 bg-black/30 rounded-2xl backdrop-blur-lg">
-            <pre className="text-sm overflow-auto">
-              {JSON.stringify(data, null, 2)}
-            </pre>
-          </div>
-        )}
+        <div className="text-center mt-20">
+          <button className="px-10 py-5 text-xl font-bold rounded-full bg-white text-black hover:scale-110 transition">
+            Entrar na experiência 🚀
+          </button>
+        </div>
       </div>
-    </main>
+    </div>
+  );
+}
+
+function Premium() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 to-emerald-50 text-gray-800">
+      <div className="max-w-6xl mx-auto px-6 py-20">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-6xl font-bold text-center bg-gradient-to-r from-pink-500 to-green-500 bg-clip-text text-transparent"
+        >
+          DeliraAteliê
+        </motion.h1>
+
+        <p className="text-center mt-6 text-lg text-gray-600">
+          Cursos artesanais com design contemporâneo e experiência única
+        </p>
+
+        <div className="grid md:grid-cols-3 gap-8 mt-16">
+          {[
+            { title: 'Cursos', desc: 'Aprenda com profundidade' },
+            { title: 'Workshops', desc: 'Experiências guiadas' },
+            { title: 'Mentorias', desc: 'Evolução artística' },
+          ].map((item) => (
+            <motion.div
+              key={item.title}
+              whileHover={{ y: -8 }}
+              className="p-6 rounded-2xl bg-white shadow-md hover:shadow-xl transition"
+            >
+              <h3 className="text-xl font-semibold">{item.title}</h3>
+              <p className="text-gray-500 mt-2">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="text-center mt-20">
+          <button className="px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 to-green-500 text-white font-semibold shadow-lg hover:scale-105 transition">
+            Explorar cursos
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
