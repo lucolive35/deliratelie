@@ -4,7 +4,8 @@
     "noEmit": false,
     "declaration": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
 }
