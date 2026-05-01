@@ -673,7 +673,7 @@ export default function Atelie() {
             {/* <SparkleButton color={ROSA}>
               📲 WhatsApp
             </SparkleButton> */}
-            <SparkleButton onClick={() => window.open("https://www.instagram.com/deliratelie/", "_blank")} color={VERDE}>
+            <SparkleButton onClick={() => window.open("https://www.instagram.com/delirartelie?igsh=eGxoNnlmeTN0dnFu", "_blank")} color={VERDE}>
               📸 Instagram
             </SparkleButton>
           </div>
