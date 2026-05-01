@@ -46,17 +46,6 @@ const courses = [
     duration: "Inderteminado, o aluno pode ficar o tempo que quiser se sentindo bem e criando",
     tag: "Iniciantes",
   },
-  // {
-  //   id: 4,
-  //   emoji: "✨",
-  //   title: "Macramê & Fibras",
-  //   desc: "Tapeçarias, porta-vasos e adereços com nós artísticos. Arte que decora e encanta!",
-  //   color: VERDE2,
-  //   bg: "#F0FFFB",
-  //   price: "R$ 200",
-  //   duration: "4 semanas",
-  //   tag: "Relax",
-  // },
 ];
 
 const testimonials = [
@@ -198,22 +187,6 @@ function CourseCard({ course, idx }: { course: typeof courses[0]; idx: number })
           <div style={{ fontSize: 22, fontWeight: 900, color: course.color }}>{course.price}</div>
           <div style={{ fontSize: 12, color: "#888" }}>⏱ {course.duration}</div>
         </div>
-        {/* <button
-          style={{
-            background: hovered ? course.color : "transparent",
-            border: `2px solid ${course.color}`,
-            color: hovered ? "#fff" : course.color,
-            padding: "10px 20px",
-            borderRadius: 50,
-            fontWeight: 700,
-            fontSize: 13,
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-            fontFamily: "inherit",
-          }}
-        >
-          Quero participar →
-        </button> */}
       </div>
     </div>
   );
@@ -426,11 +399,115 @@ export default function Atelie() {
           0%, 100% { transform: scale(1); }
           50% { transform: scale(1.08); }
         }
+        @keyframes slideDown {
+          0% { opacity: 0; transform: translateY(-10px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #FFF5FB; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #FF6B9D, #A29BFE); border-radius: 10px; }
+
+        /* ── RESPONSIVE ── */
+        .nav-links { display: flex; gap: 8px; }
+        .hamburger { display: none; }
+        .mobile-menu { display: none; }
+
+        .sobre-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          align-items: center;
+        }
+        .sobre-blob {
+          width: 320px;
+          height: 320px;
+        }
+
+        @media (max-width: 768px) {
+          .nav-links { display: none; }
+          .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            z-index: 1100;
+          }
+          .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            border-radius: 2px;
+            background: ${ROSA};
+            transition: all 0.3s;
+          }
+          .mobile-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(16px);
+            padding: 1.5rem 2rem;
+            border-bottom: 1.5px solid #FFE0EF;
+            z-index: 999;
+            animation: slideDown 0.25s ease;
+          }
+          .mobile-menu button {
+            width: 100%;
+            text-align: left;
+            padding: 12px 18px !important;
+            border-radius: 14px !important;
+            font-size: 15px !important;
+          }
+
+          .sobre-grid {
+            grid-template-columns: 1fr;
+            gap: 32px;
+            text-align: center;
+          }
+          .sobre-blob {
+            width: 220px !important;
+            height: 220px !important;
+            margin: 0 auto;
+            font-size: 64px !important;
+          }
+          .sobre-tags {
+            justify-content: center !important;
+          }
+
+          .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+          }
+          .hero-buttons button, .hero-buttons > * {
+            width: 100%;
+            max-width: 280px;
+          }
+
+          .contato-buttons {
+            flex-direction: column;
+            align-items: center;
+          }
+          .contato-buttons > * {
+            width: 100%;
+            max-width: 280px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .sobre-blob {
+            width: 180px !important;
+            height: 180px !important;
+          }
+        }
       `}</style>
 
       <CursorTrail />
@@ -457,9 +534,10 @@ export default function Atelie() {
         >
           ✦ Delira Ateliê
         </div>
-        <div style={{ display: "flex", gap: 8 }}>
-          {/* {["home","cursos","sobre","depoimentos","contato"].map(s => ( */}
-            {["home","cursos","sobre","contato"].map(s => (
+
+        {/* Desktop nav */}
+        <div className="nav-links">
+          {["home","cursos","sobre","contato"].map(s => (
             <button
               key={s}
               onClick={() => scrollTo(s)}
@@ -477,11 +555,45 @@ export default function Atelie() {
                 textTransform: "capitalize",
               }}
             >
-              {s === "home" ? "Início" : s === "cursos" ? "Cursos" : s === "sobre" ? "Sobre" : s === "depoimentos" ? "Depoimentos" : "Contato"}
+              {s === "home" ? "Início" : s === "cursos" ? "Cursos" : s === "sobre" ? "Sobre" : "Contato"}
             </button>
           ))}
         </div>
+
+        {/* Hamburger */}
+        <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
+          <span style={{ transform: menuOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
+          <span style={{ opacity: menuOpen ? 0 : 1 }} />
+          <span style={{ transform: menuOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
+        </button>
       </nav>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="mobile-menu">
+          {["home","cursos","sobre","contato"].map(s => (
+            <button
+              key={s}
+              onClick={() => scrollTo(s)}
+              style={{
+                background: activeSection === s ? ROSA : "transparent",
+                color: activeSection === s ? "#fff" : "#555",
+                border: activeSection === s ? "none" : "1.5px solid #DDD",
+                padding: "8px 16px",
+                borderRadius: 50,
+                cursor: "pointer",
+                fontFamily: "inherit",
+                fontSize: 13,
+                fontWeight: 600,
+                transition: "all 0.3s",
+                textTransform: "capitalize",
+              }}
+            >
+              {s === "home" ? "Início" : s === "cursos" ? "Cursos" : s === "sobre" ? "Sobre" : "Contato"}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* HERO */}
       <section id="home" style={{ minHeight: "100vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", paddingTop: 80 }}>
@@ -491,7 +603,7 @@ export default function Atelie() {
         <FloatingBlob color={VERDE2} size="200px" top="70%" left="5%" delay={1.5} duration={9} />
         <FloatingBlob color={ROSA} size="180px" top="40%" left="45%" delay={0.8} duration={7.5} />
 
-        <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "0 2rem", maxWidth: 900 }}>
+        <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "0 1.5rem", maxWidth: 900, width: "100%" }}>
           <div style={{
             fontSize: 80,
             animation: "heroFloat 4s ease-in-out infinite",
@@ -516,10 +628,11 @@ export default function Atelie() {
             lineHeight: 1.7,
             maxWidth: 620,
             margin: "0 auto 40px",
+            padding: "0 0.5rem",
           }}>
             Um espaço onde a <strong style={{ color: ROSA }}>arte</strong> encontra o <strong style={{ color: VERDE }}>artesanato</strong> e a magia acontece. Cursos para todos os níveis com muita cor, criatividade e amor. ✨
           </p>
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+          <div className="hero-buttons" style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
             <SparkleButton color="#FF6B9D" onClick={() => scrollTo("cursos")}>
               🎨 Ver Cursos
             </SparkleButton>
@@ -542,23 +655,6 @@ export default function Atelie() {
               🌸 Nossa História
             </button>
           </div>
-
-          {/* stats pills */}
-          {/* <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 56, flexWrap: "wrap" }}>
-            {[["500+","Alunas"], ["4","Cursos"], ["5 ⭐","Avaliação"], ["3 anos","De arte"]].map(([n,l]) => (
-              <div key={l} style={{
-                background: "#fff",
-                border: "2px solid #D0FFE8",
-                borderRadius: 60,
-                padding: "12px 24px",
-                textAlign: "center",
-                boxShadow: "0 4px 20px rgba(0,200,117,0.15)",
-              }}>
-                <div style={{ fontFamily: "'Pacifico', cursive", fontSize: 20, color: VERDE }}>{n}</div>
-                <div style={{ fontSize: 12, color: "#888", fontWeight: 600 }}>{l}</div>
-              </div>
-            ))}
-          </div> */}
         </div>
       </section>
 
@@ -571,45 +667,48 @@ export default function Atelie() {
 
       {/* SOBRE */}
       <section id="sobre" style={{ background: "#F5FFF9", padding: "5rem 2rem" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
-          <div>
-            <div style={{
-              width: 320, height: 320,
-              borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-              background: `linear-gradient(135deg, ${ROSA}, ${ROSA2}, ${VERDE}, ${VERDE2})`,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 100,
-              animation: "morphBlob 8s ease-in-out infinite alternate",
-              boxShadow: `0 20px 60px ${ROSA}55`,
-            }}>
-              🧶
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="sobre-grid">
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div
+                className="sobre-blob"
+                style={{
+                  borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
+                  background: `linear-gradient(135deg, ${ROSA}, ${ROSA2}, ${VERDE}, ${VERDE2})`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 100,
+                  animation: "morphBlob 8s ease-in-out infinite alternate",
+                  boxShadow: `0 20px 60px ${ROSA}55`,
+                }}
+              >
+                🧶
+              </div>
             </div>
-          </div>
-          <div>
-            <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: 42, color: ROSA, marginBottom: 16 }}>
-              Nossa Historia ✨
-            </h2>
-            <p style={{ fontSize: 16.5, color: "#555", lineHeight: 1.85, marginBottom: 16 }}>
-              O Delira Ateliê nasceu em 2026 do sonho de criar um espaço onde a arte seja acessivel, criativa e transformadora. Acreditamos que <strong style={{ color: VERDE }}>cada pessoa carrega uma artista dentro de si</strong>.
-            </p>
-            <p style={{ fontSize: 16.5, color: "#555", lineHeight: 1.85, marginBottom: 28 }}>
-              Nossas aulas são praticas, tecnicas e teoricas, e trabalham principalmente a energia  criativa dos alunos. Aqui não existe "errado" — existe <strong style={{ color: ROSA }}>expressão, cor e vida</strong>! 
-              {/* to-do add logo minimo */}
-            </p>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {["🎨 Arte sem limites", "🧵 Crochê terapêutico", "✨ Espaço seguro"].map((tag, i) => (
-                <span key={tag} style={{
-                  background: "#fff",
-                  border: `2px solid ${i % 2 === 0 ? ROSA : VERDE}`,
-                  color: i % 2 === 0 ? ROSA : VERDE,
-                  borderRadius: 50,
-                  padding: "8px 16px",
-                  fontSize: 13,
-                  fontWeight: 700,
-                }}>
-                  {tag}
-                </span>
-              ))}
+            <div>
+              <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: "clamp(2rem, 5vw, 2.6rem)", color: ROSA, marginBottom: 16 }}>
+                Nossa Historia ✨
+              </h2>
+              <p style={{ fontSize: 16.5, color: "#555", lineHeight: 1.85, marginBottom: 16 }}>
+                O Delira Ateliê nasceu em 2026 do sonho de criar um espaço onde a arte seja acessivel, criativa e transformadora. Acreditamos que <strong style={{ color: VERDE }}>cada pessoa carrega uma artista dentro de si</strong>.
+              </p>
+              <p style={{ fontSize: 16.5, color: "#555", lineHeight: 1.85, marginBottom: 28 }}>
+                Nossas aulas são praticas, tecnicas e teoricas, e trabalham principalmente a energia  criativa dos alunos. Aqui não existe "errado" — existe <strong style={{ color: ROSA }}>expressão, cor e vida</strong>!
+              </p>
+              <div className="sobre-tags" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                {["🎨 Arte sem limites", "🧵 Crochê terapêutico", "✨ Espaço seguro"].map((tag, i) => (
+                  <span key={tag} style={{
+                    background: "#fff",
+                    border: `2px solid ${i % 2 === 0 ? ROSA : VERDE}`,
+                    color: i % 2 === 0 ? ROSA : VERDE,
+                    borderRadius: 50,
+                    padding: "8px 16px",
+                    fontSize: 13,
+                    fontWeight: 700,
+                  }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -619,37 +718,25 @@ export default function Atelie() {
       <section id="cursos" style={{ padding: "6rem 2rem", background: "#FFFBFE" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: 48, color: VERDE, marginBottom: 12 }}>
+            <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: "clamp(2.2rem, 6vw, 3rem)", color: VERDE, marginBottom: 12 }}>
               Nossos Cursos 🎨
             </h2>
             <p style={{ fontSize: 17, color: "#666", maxWidth: 500, margin: "0 auto" }}>
               Cada curso é uma viagem sensorial de cores, texturas e criatividade pura
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: 24 }}>
             {courses.map((c, i) => <CourseCard key={c.id} course={c} idx={i} />)}
           </div>
         </div>
       </section>
 
       {/* COLOR PICKER INTERATIVO */}
-      <section style={{ padding: "4rem 2rem", background: "#FFF0F6" }}>
+      <section style={{ padding: "4rem 1.5rem", background: "#FFF0F6" }}>
         <div style={{ maxWidth: 600, margin: "0 auto" }}>
           <ColorPicker />
         </div>
       </section>
-
-      {/* DEPOIMENTOS */}
-      {/* <section id="depoimentos" style={{ padding: "6rem 2rem", background: "#FFFBFE" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: 42, color: ROSA, textAlign: "center", marginBottom: 48 }}>
-            Quem já passou por aqui... 💫
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
-            {testimonials.map((t, i) => <Testimonial key={t.name} t={t} idx={i} />)}
-          </div>
-        </div>
-      </section> */}
 
       {/* CTA FINAL */}
       <section id="contato" style={{
@@ -663,59 +750,17 @@ export default function Atelie() {
         <FloatingBlob color={ROSA} size="160px" top="60%" left="5%" delay={1} duration={7} />
         <div style={{ position: "relative", zIndex: 1 }}>
           <div style={{ fontSize: 64, marginBottom: 16, animation: "pulse 2s ease-in-out infinite" }}>🌈</div>
-          <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: 48, color: ROSA, marginBottom: 16 }}>
+          <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: "clamp(2rem, 6vw, 3rem)", color: ROSA, marginBottom: 16 }}>
             Pronta para criar?
           </h2>
           <p style={{ fontSize: 18, color: "#555", maxWidth: 480, margin: "0 auto 40px", lineHeight: 1.7 }}>
             Entre nessa jornada colorida com a gente! As turmas são pequenas e acolhedoras. 🧡
           </p>
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
-            {/* <SparkleButton color={ROSA}>
-              📲 WhatsApp
-            </SparkleButton> */}
+          <div className="contato-buttons" style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
             <SparkleButton onClick={() => window.open("https://www.instagram.com/delirartelie?igsh=eGxoNnlmeTN0dnFu", "_blank")} color={VERDE}>
               📸 Instagram
             </SparkleButton>
           </div>
-          {/* <div style={{
-            background: "#fff",
-            borderRadius: 24,
-            padding: "2rem",
-            maxWidth: 440,
-            margin: "0 auto",
-            border: `2px dashed ${VERDE}`,
-          }}>
-            <h3 style={{ fontFamily: "'Pacifico', cursive", fontSize: 22, color: ROSA, marginBottom: 16 }}>
-              Receba a newsletter ✉️
-            </h3>
-            <div style={{ display: "flex", gap: 10 }}>
-              <input
-                type="email"
-                placeholder="seu@email.com"
-                style={{
-                  flex: 1, padding: "12px 18px", borderRadius: 50,
-                  border: "2px solid #D0FFE8",
-                  fontFamily: "inherit", fontSize: 14, outline: "none",
-                  transition: "border 0.3s",
-                }}
-                onFocus={e => e.target.style.border = `2px solid ${VERDE}`}
-                onBlur={e => e.target.style.border = "2px solid #D0FFE8"}
-              />
-              <button style={{
-                background: `linear-gradient(135deg, ${ROSA}, ${VERDE})`,
-                color: "#fff", border: "none",
-                padding: "12px 22px", borderRadius: 50,
-                fontFamily: "inherit", fontWeight: 700,
-                cursor: "pointer", fontSize: 14,
-                transition: "transform 0.2s",
-              }}
-                onMouseEnter={(e: React.MouseEvent) => (e.target as HTMLElement).style.transform = "scale(1.05)"}
-                onMouseLeave={(e: React.MouseEvent) => (e.target as HTMLElement).style.transform = "scale(1)"}
-              >
-                ✨ Inscrever
-              </button>
-            </div>
-          </div> */}
         </div>
       </section>
 
@@ -724,7 +769,7 @@ export default function Atelie() {
         background: "#2D1B3D",
         color: "#fff",
         textAlign: "center",
-        padding: "2.5rem",
+        padding: "2.5rem 1.5rem",
       }}>
         <div style={{ fontFamily: "'Pacifico', cursive", fontSize: 26,
           background: `linear-gradient(90deg, ${ROSA}, ${ROSA2}, ${VERDE}, ${VERDE2})`,
@@ -736,7 +781,7 @@ export default function Atelie() {
         <p style={{ color: "#AAA", fontSize: 14, marginBottom: 16 }}>
           Feito com 🧶 amor e muita cor • Mogi da Cruzes, SP
         </p>
-        <div style={{ display: "flex", gap: 20, justifyContent: "center" }}>
+        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
           {["🌈 Arte", "🧵 Crochê", "🌸 Artesanato"].map(t => (
             <span key={t} style={{ color: "#777", fontSize: 13 }}>{t}</span>
           ))}
