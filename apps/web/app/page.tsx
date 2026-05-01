@@ -597,7 +597,7 @@ export default function Atelie() {
               {/* to-do add logo minimo */}
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {["🎨 Arte sem limites", "🧵 Crochê terapêutico", "🌸 Comunidade amorosa", "✨ Espaço seguro"].map((tag, i) => (
+              {["🎨 Arte sem limites", "🧵 Crochê terapêutico", "✨ Espaço seguro"].map((tag, i) => (
                 <span key={tag} style={{
                   background: "#fff",
                   border: `2px solid ${i % 2 === 0 ? ROSA : VERDE}`,
