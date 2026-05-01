@@ -21,7 +21,7 @@ const courses = [
     color: ROSA,
     bg: "#FFF0F6",
     price: "R$ 65",
-    duration: "8 semanas",
+    duration: "1 dia",
     tag: "Novo",
   },
   {
