@@ -517,7 +517,7 @@ export default function Atelie() {
             maxWidth: 620,
             margin: "0 auto 40px",
           }}>
-            Um espaço onde a <strong style={{ color: ROSA }}>arte</strong> encontra o <strong style={{ color: VERDE }}>crochê</strong> e a magia acontece. Cursos para todos os níveis com muita cor, criatividade e amor. ✨
+            Um espaço onde a <strong style={{ color: ROSA }}>arte</strong> encontra o <strong style={{ color: VERDE }}>artesanato</strong> e a magia acontece. Cursos para todos os níveis com muita cor, criatividade e amor. ✨
           </p>
           <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
             <SparkleButton color="#FF6B9D" onClick={() => scrollTo("cursos")}>
