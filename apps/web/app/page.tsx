@@ -589,10 +589,10 @@ export default function Atelie() {
               Nossa Historia ✨
             </h2>
             <p style={{ fontSize: 16.5, color: "#555", lineHeight: 1.85, marginBottom: 16 }}>
-              O Delira Ateliê nasceu em 2022 do sonho de criar um espaço onde a arte seja acessível, colorida e transformadora. Acreditamos que <strong style={{ color: VERDE }}>cada pessoa carrega uma artista dentro de si</strong>.
+              O Delira Ateliê nasceu em 2026 do sonho de criar um espaço onde a arte seja acessivel, criativa e transformadora. Acreditamos que <strong style={{ color: VERDE }}>cada pessoa carrega uma artista dentro de si</strong>.
             </p>
             <p style={{ fontSize: 16.5, color: "#555", lineHeight: 1.85, marginBottom: 28 }}>
-              Nossas aulas mesclam técnicas tradicionais com uma energia psicodélica e alegre. Aqui não existe "errado" — existe <strong style={{ color: ROSA }}>expressão, cor e vida</strong>! 🌈
+              Nossas aulas são praticas, tecnicas e teoricas, e trabalham principalmente a energia  criativa dos alunos. Aqui não existe "errado" — existe <strong style={{ color: ROSA }}>expressão, cor e vida</strong>! 🌈
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {["🎨 Arte sem limites", "🧵 Crochê terapêutico", "🌸 Comunidade amorosa", "✨ Espaço seguro"].map((tag, i) => (
