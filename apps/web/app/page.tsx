@@ -198,7 +198,7 @@ function CourseCard({ course, idx }: { course: typeof courses[0]; idx: number })
           <div style={{ fontSize: 22, fontWeight: 900, color: course.color }}>{course.price}</div>
           <div style={{ fontSize: 12, color: "#888" }}>⏱ {course.duration}</div>
         </div>
-        <button
+        {/* <button
           style={{
             background: hovered ? course.color : "transparent",
             border: `2px solid ${course.color}`,
@@ -213,7 +213,7 @@ function CourseCard({ course, idx }: { course: typeof courses[0]; idx: number })
           }}
         >
           Quero participar →
-        </button>
+        </button> */}
       </div>
     </div>
   );
