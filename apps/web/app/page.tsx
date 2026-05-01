@@ -639,7 +639,7 @@ export default function Atelie() {
       </section>
 
       {/* DEPOIMENTOS */}
-      <section id="depoimentos" style={{ padding: "6rem 2rem", background: "#FFFBFE" }}>
+      {/* <section id="depoimentos" style={{ padding: "6rem 2rem", background: "#FFFBFE" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <h2 style={{ fontFamily: "'Pacifico', cursive", fontSize: 42, color: ROSA, textAlign: "center", marginBottom: 48 }}>
             Quem já passou por aqui... 💫
@@ -648,7 +648,7 @@ export default function Atelie() {
             {testimonials.map((t, i) => <Testimonial key={t.name} t={t} idx={i} />)}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA FINAL */}
       <section id="contato" style={{
