@@ -737,7 +737,7 @@ export default function Atelie() {
           Feito com 🧶 amor e muita cor • Mogi da Cruzes, SP
         </p>
         <div style={{ display: "flex", gap: 20, justifyContent: "center" }}>
-          {["🌈 Arte", "🧵 Crochê"].map(t => (
+          {["🌈 Arte", "🧵 Crochê", "🌸 Artesanato"].map(t => (
             <span key={t} style={{ color: "#777", fontSize: 13 }}>{t}</span>
           ))}
         </div>
