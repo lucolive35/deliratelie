@@ -20,7 +20,7 @@ const courses = [
     desc: "Workshop para aprender as técnicas básicas do crochê, os pontos iniciais para a criação de peças simples como chaveiros.",
     color: ROSA,
     bg: "#FFF0F6",
-    price: "R$ 280",
+    price: "R$ 65",
     duration: "8 semanas",
     tag: "Novo",
   },
