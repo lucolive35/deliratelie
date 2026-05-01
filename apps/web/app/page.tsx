@@ -677,7 +677,7 @@ export default function Atelie() {
               📸 Instagram
             </SparkleButton>
           </div>
-          <div style={{
+          {/* <div style={{
             background: "#fff",
             borderRadius: 24,
             padding: "2rem",
@@ -715,7 +715,7 @@ export default function Atelie() {
                 ✨ Inscrever
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
