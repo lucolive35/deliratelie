@@ -543,7 +543,7 @@ export default function Atelie() {
           </div>
 
           {/* stats pills */}
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 56, flexWrap: "wrap" }}>
+          {/* <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 56, flexWrap: "wrap" }}>
             {[["500+","Alunas"], ["4","Cursos"], ["5 ⭐","Avaliação"], ["3 anos","De arte"]].map(([n,l]) => (
               <div key={l} style={{
                 background: "#fff",
@@ -557,7 +557,7 @@ export default function Atelie() {
                 <div style={{ fontSize: 12, color: "#888", fontWeight: 600 }}>{l}</div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
