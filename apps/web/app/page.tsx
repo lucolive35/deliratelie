@@ -734,7 +734,7 @@ export default function Atelie() {
           ✦ Delira Ateliê
         </div>
         <p style={{ color: "#AAA", fontSize: 14, marginBottom: 16 }}>
-          Feito com 🧶 amor e muita cor • São Paulo, SP
+          Feito com 🧶 amor e muita cor • Mogi da Cruzes, SP
         </p>
         <div style={{ display: "flex", gap: 20, justifyContent: "center" }}>
           {["🌈 Arte", "🧵 Crochê"].map(t => (
