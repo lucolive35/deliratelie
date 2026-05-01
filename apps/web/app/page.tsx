@@ -670,10 +670,10 @@ export default function Atelie() {
             Entre nessa jornada colorida com a gente! As turmas são pequenas e acolhedoras. 🧡
           </p>
           <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
-            <SparkleButton color={ROSA}>
+            {/* <SparkleButton color={ROSA}>
               📲 WhatsApp
-            </SparkleButton>
-            <SparkleButton color={VERDE}>
+            </SparkleButton> */}
+            <SparkleButton onClick={() => window.open("https://www.instagram.com/deliratelie/", "_blank")} color={VERDE}>
               📸 Instagram
             </SparkleButton>
           </div>
